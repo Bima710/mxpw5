@@ -1,25 +1,35 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View, Text, Image } from 'react-native';
-import { Card, Title, Paragraph, Avatar } from 'react-native-paper';
+import { ScrollView, TouchableOpacity, View, Text, Image } from 'react-native';
 import userData from './data.json';
 import styles from './styles';
 
-const UserList =() =>{
+const UserList =({ navigation}) =>{
     return (
-        <ScrollView style={styles.scrollView}>
-      {userData.map((user) => (
-        <Card style={styles.card} key={user.name}>
-          <Card.Title
-            title={user.name}
-            subtitle={user.email}
-            left={(props) => <Avatar.Image {...props} source={{ uri: user.photo_url }} />}
-          />
-          <Card.Content>
-            <Title>{user.name}</Title>
-            <Paragraph>{user.email}</Paragraph>
-          </Card.Content>
-        </Card>
-      ))}
+        <ScrollView>
+          {userData.map((users) => {
+            return (
+              <view style={styles.userList} key={users.name}>
+              <TouchableOpacity 
+              style={styles.card}
+              onPress={() =>
+                navigation.navigate("Profile", { userName: useres.name })
+              }
+              >
+              <Image
+              source ={{
+                uri: users.photo_url,
+              }}
+              style={styles.avatar}
+              />
+              <view>
+                <text style={styles.boldText}>{users.name}</text>
+                <text>{users.email}</text>
+              </view>
+            </TouchableOpacity>
+          </view>
+        );
+      })}
     </ScrollView>
-    )
-}
+    );
+  };
+export default UserList;
